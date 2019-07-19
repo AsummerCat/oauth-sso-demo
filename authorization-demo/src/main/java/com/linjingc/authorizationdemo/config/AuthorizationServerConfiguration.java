@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
@@ -71,16 +70,18 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .tokenStore(new RedisTokenStore(redisConnectionFactory))
                 .authenticationManager(authenticationManager)
                 //允许 GET、POST 请求获取 token，即访问端点：oauth/token
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+                //刷新token
+                .reuseRefreshTokens(true);
 
-        // 为解决获取token并发问题
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(endpoints.getTokenStore());
-        //这里表示可以使用刷新token
-        tokenServices.setSupportRefreshToken(true);
-        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
-        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
-        endpoints.tokenServices(tokenServices);
+//        // 为解决获取token并发问题
+//        DefaultTokenServices tokenServices = new DefaultTokenServices();
+//        tokenServices.setTokenStore(endpoints.getTokenStore());
+//        //这里表示可以使用刷新token
+//        tokenServices.setSupportRefreshToken(true);
+//        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+//        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
+//        endpoints.tokenServices(tokenServices);
 
     }
 
