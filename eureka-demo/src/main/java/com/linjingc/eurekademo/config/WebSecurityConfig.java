@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * 跨域处理 不限制跨域
+ */
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
