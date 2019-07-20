@@ -44,7 +44,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         //这个地方后面会使用到 前缀表示密码加密类型
         String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
 
-
         clients
                 //内存模式
                 .inMemory()
@@ -54,8 +53,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .scopes("select")
                 .authorities("oauth2")
                 .secret(finalSecret)
-                .accessTokenValiditySeconds(30)
-                .refreshTokenValiditySeconds(200);
+                .accessTokenValiditySeconds(300)
+                .refreshTokenValiditySeconds(2000);
     }
 
     /**

@@ -25,7 +25,7 @@ security:
       access-token-uri: http://my.oauth2.com:8200/oauth/token
     resource:
       token-info-uri: http://my.oauth2.com:8200/oauth/check_token
-      user-info-uri: http://my.oauth2.com:8200/user
+      user-info-uri: http://my.oauth2.com:8200/oauth/getUserInfo
     authorization:
       check-token-access: http://my.oauth2.com:8200/oauth/check_token
     sso:
