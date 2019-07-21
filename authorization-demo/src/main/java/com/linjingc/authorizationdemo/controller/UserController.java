@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 
@@ -24,6 +25,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("getUserInfo")
+    @ResponseBody
     public Principal getUserInfo(Principal principal) {
         System.out.println("获取到用户" + principal.getName());
         return principal;
