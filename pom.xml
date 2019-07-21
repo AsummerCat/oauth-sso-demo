@@ -14,6 +14,12 @@
     <name>oauth-sso-demo</name>
     <description>oauth2-20190718整合SSO-demo</description>
 
+    <modules>
+        <module>authorization-demo</module>
+        <module>eureka-demo</module>
+        <module>login-demo</module>
+        <module>resource-demo</module>
+    </modules>
     <properties>
         <java.version>1.8</java.version>
         <commons-pool2.version>2.6.2</commons-pool2.version>
