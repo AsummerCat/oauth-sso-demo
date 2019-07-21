@@ -61,10 +61,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        http.csrf().disable();
         http.authorizeRequests()
                 //开启路径不需要权限访问
-                .antMatchers("/oauth/*", "/").permitAll()
+                .antMatchers("/oauth/*", "/","/user").permitAll()
                 //其他路径都需要权限
                 .anyRequest().authenticated();
     }
