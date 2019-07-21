@@ -80,16 +80,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
                 //刷新token
                 .reuseRefreshTokens(true);
-
-//        // 为解决获取token并发问题
-//        DefaultTokenServices tokenServices = new DefaultTokenServices();
-//        tokenServices.setTokenStore(endpoints.getTokenStore());
-//        //这里表示可以使用刷新token
-//        tokenServices.setSupportRefreshToken(true);
-//        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
-//        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
-//        endpoints.tokenServices(tokenServices);
-
     }
 
     /**

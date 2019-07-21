@@ -12,7 +12,7 @@ eureka:
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
     serviceUrl:
-      defaultZone: http://admin:pass@my.eureka.com:8100/eureka
+      defaultZone: http://admin:pass@localhost:8100/eureka
     healthcheck:
       enabled: true
 
@@ -22,11 +22,10 @@ security:
     client:
       client-id: client_2
       client-secret: 123456
-      access-token-uri: http://my.oauth2.com:8200/oauth/token
+      access-token-uri: http://localhost:8200/oauth/token
     resource:
-      token-info-uri: http://my.oauth2.com:8200/oauth/check_token
-      user-info-uri: http://my.oauth2.com:8200/oauth/getUserInfo
+      user-info-uri: http://localhost:8200/oauth/getUserInfo
     authorization:
-      check-token-access: http://my.oauth2.com:8200/oauth/check_token
+      check-token-access: http://localhost:8200/oauth/check_token
     sso:
-      login-path: http://my.oauth2.com:8400/login
+      login-path: http://localhost:8400/login
