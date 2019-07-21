@@ -25,7 +25,7 @@ security:
       #access-token-uri: http://localhost:8200/oauth/token
 
     resource:
-      user-info-uri: http://localhost:8200/oauth/getUserInfo
+      user-info-uri: http://localhost:8200/getUserInfo
       prefer-token-info: false
     #authorization:
      # check-token-access: http://localhost:8200/oauth/check_token

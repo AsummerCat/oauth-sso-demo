@@ -12,11 +12,6 @@ import java.security.Principal;;
 @RestController
 public class UserController {
 
-    @GetMapping("user")
-    public Principal user(Principal principal) {
-        return principal;
-    }
-
     @GetMapping("auth/test1")
     @PreAuthorize("hasAuthority('user:add')")
     public String authTest1(){

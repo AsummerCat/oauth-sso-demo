@@ -1,6 +1,8 @@
 package com.linjingc.authorizationdemo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,6 @@ import java.security.Principal;
  * 用户基本操作
  */
 @Controller
-@RequestMapping("/oauth")
 public class UserController {
     @Autowired
     private TokenStore tokenStore;
@@ -21,12 +22,18 @@ public class UserController {
     /**
      * 获取用户信息
      *
-     * @param principal
      * @return
      */
     @RequestMapping("getUserInfo")
     @ResponseBody
-    public Principal getUserInfo(Principal principal) {
+    public Authentication getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("获取到用户" + authentication.getName());
+        return authentication;
+    }
+    @RequestMapping("getUserInfo1")
+    @ResponseBody
+    public Object getUserInfo1(Principal principal) {
         System.out.println("获取到用户" + principal.getName());
         return principal;
     }
