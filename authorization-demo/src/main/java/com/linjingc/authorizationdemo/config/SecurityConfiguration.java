@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
@@ -30,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected UserDetailsService userDetailsService() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String finalPassword = "{bcrypt}"+bCryptPasswordEncoder.encode("123456");
+        String finalPassword = "{bcrypt}" + bCryptPasswordEncoder.encode("123456");
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("user_1").password(finalPassword).authorities("USER").build());
         manager.createUser(User.withUsername("user_2").password(finalPassword).authorities("USER").build());
@@ -64,9 +63,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 //开启路径不需要权限访问
-                .antMatchers("/oauth/*", "/","/user").permitAll()
+                .antMatchers("/oauth/*", "/", "/user").permitAll()
                 //其他路径都需要权限
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/hello");
+//                .loginProcessingUrl("/oauth/login");
     }
 
 

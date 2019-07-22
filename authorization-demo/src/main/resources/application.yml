@@ -10,8 +10,8 @@ spring:
 
 server:
   port: 8200
-  servlet:
-    context-path: /uaa
+#  servlet:
+##    context-path: /uaa
 
 ## eureka 客户端基本配置
 eureka:

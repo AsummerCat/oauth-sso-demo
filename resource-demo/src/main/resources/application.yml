@@ -25,10 +25,10 @@ security:
 #      client-secret: 123456
 #      user-authorization-uri: http://localhost:8200/uaa/oauth/token
     resource:
-      user-info-uri: http://localhost:8200/uaa/user
+      user-info-uri: http://localhost:8200/user
       prefer-token-info: false
       id: order
     #authorization:
      # check-token-access: http://localhost:8200/oauth/check_token
-    sso:
-      login-path: http://localhost:8400/login
+#    sso:
+#      login-path: http://localhost:8400/login

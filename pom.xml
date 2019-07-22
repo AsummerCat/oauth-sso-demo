@@ -19,6 +19,7 @@
         <module>eureka-demo</module>
         <module>login-demo</module>
         <module>resource-demo</module>
+        <module>zuul-demo</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
