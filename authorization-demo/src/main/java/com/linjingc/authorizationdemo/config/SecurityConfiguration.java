@@ -65,11 +65,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //开启路径不需要权限访问
                 .antMatchers("/oauth/*", "/", "/user").permitAll()
                 //其他路径都需要权限
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/hello");
+                .anyRequest().authenticated();
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/hello");
 //                .loginProcessingUrl("/oauth/login");
     }
 

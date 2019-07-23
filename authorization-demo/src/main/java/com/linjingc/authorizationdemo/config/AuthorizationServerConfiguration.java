@@ -51,7 +51,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .inMemory()
                 .withClient("client_2")
                 .resourceIds("order")
-                .authorizedGrantTypes("password", "refresh_token")
+                .authorizedGrantTypes("password", "refresh_token","authorization_code")
                 .scopes("select")
                 .authorities("oauth2")
                 .secret(finalSecret)
