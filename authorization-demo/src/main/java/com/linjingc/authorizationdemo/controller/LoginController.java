@@ -1,10 +1,7 @@
 package com.linjingc.authorizationdemo.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class LoginController {
         return "进入认证服务器";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/goLogin",method = RequestMethod.GET)
     public String login(){
         return "login";
     }

@@ -6,8 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.Map;
 
 /**
@@ -16,20 +18,15 @@ import java.util.Map;
 @RestController
 public class UserController {
 
-    @GetMapping("show")
-    public String authTest12() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof OAuth2Authentication) {
-            OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) authentication;
-            authentication = oAuth2Authentication.getUserAuthentication();
-            if (authentication instanceof UsernamePasswordAuthenticationToken) {
-                UsernamePasswordAuthenticationToken oAuth2AuthenticationToken = (UsernamePasswordAuthenticationToken) authentication;
-                Map map = (Map) oAuth2AuthenticationToken.getDetails();
-                map = (Map) map.get("principal");
-                return map.toString();
-            }
-        }
-        return null;
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    @GetMapping("/user")
+    public Principal user(Principal user) {
+        System.out.println("获取到用户" + user.getName());
+        return user;
     }
 
 

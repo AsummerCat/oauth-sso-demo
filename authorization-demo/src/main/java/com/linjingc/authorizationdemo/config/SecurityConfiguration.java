@@ -57,31 +57,44 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.
-                authorizeRequests()
-                // /oauth/authorize link org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint
-
-                // 必须登录过的用户才可以进行 oauth2 的授权码申请
-                .antMatchers("/", "/oauth/*", "/oauth/authorize").authenticated()
-                //不需要权限访问
-                .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/third-party/**", "/login").permitAll()
-
+        http.formLogin().loginPage("/goLogin")
+                .loginProcessingUrl("/login")
+                .and().authorizeRequests()
+                .antMatchers("/authentication/require",
+                        "/authentication/form","/user"
+                )
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .and()
-                .httpBasic()
-                .disable()
-                .exceptionHandling()
-                .accessDeniedPage("/login?authorization_error=true")
-                .and()
-                // TODO: put CSRF protection back into this endpoint
-                .csrf()
-                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
-                .disable();
+                .csrf().disable();
+
+
     }
+    //    //http.csrf().disable();
+    //    //http.
+    //    //        authorizeRequests()
+    //    //        // /oauth/authorize link org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint
+    //    //
+    //    //        // 必须登录过的用户才可以进行 oauth2 的授权码申请
+    //    //        .antMatchers("/", "/oauth/*", "/oauth/authorize").authenticated()
+    //    //        //不需要权限访问
+    //    //        .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/third-party/**", "/login").permitAll()
+    //    //
+    //    //        .anyRequest().authenticated()
+    //    //        //.and()
+    //    //        //.formLogin()
+    //    //        //.loginPage("/login")
+    //    //        .and()
+    //    //        .httpBasic()
+    //    //        .disable()
+    //    //        .exceptionHandling()
+    //    //        .accessDeniedPage("/login?authorization_error=true")
+    //    //        .and()
+    //    //        // TODO: put CSRF protection back into this endpoint
+    //    //        .csrf()
+    //    //        .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
+    //    //        .disable();
+    //}
 
 
     /**

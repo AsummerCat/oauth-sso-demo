@@ -2,7 +2,7 @@ spring:
   application:
     name: ssoLoginServer
 server:
-  port: 10000
+  port: 8600
 
 ## eureka 客户端基本配置
 eureka:
@@ -16,15 +16,15 @@ eureka:
       enabled: true
 
 
+auth-server: http://localhost:8200
+
 security:
   oauth2:
     client:
-      access-token-uri: http://localhost:8200/oauth/token
-      client-id: client_2
+      client-id: client
       client-secret: 123456
-      user-authorization-uri: http://localhost:8200/oauth/authorize
-      authorized-grant-types: authorization_code
-      scope: all
+      access-token-uri: ${auth-server}/oauth/token
+      user-authorization-uri: ${auth-server}/oauth/authorize
     resource:
-      user-info-uri: http://localhost:8200/user
+      user-info-uri: ${auth-server}/user
       prefer-token-info: false

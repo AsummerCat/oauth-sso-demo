@@ -49,21 +49,20 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
 
         clients.inMemory()
-                .withClient("client_2")
+                .withClient("client")
                 .secret(finalSecret)
-                .authorizedGrantTypes("refresh_token","authorization_code")
-                .accessTokenValiditySeconds(3600)
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .scopes("all")
-                .autoApprove(true)
-                .redirectUris("http://localhost:10000/login");
+                .accessTokenValiditySeconds(3600)
+                .autoApprove(true);
     }
 
-    @Bean
-    public ApprovalStore approvalStore() {
-        TokenApprovalStore store = new TokenApprovalStore();
-        store.setTokenStore(tokenStore());
-        return store;
-    }
+    //@Bean
+    //public ApprovalStore approvalStore() {
+    //    TokenApprovalStore store = new TokenApprovalStore();
+    //    store.setTokenStore(tokenStore());
+    //    return store;
+    //}
 
     @Bean
     public TokenStore tokenStore() {

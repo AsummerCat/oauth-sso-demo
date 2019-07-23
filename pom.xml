@@ -20,6 +20,7 @@
         <module>login-demo</module>
         <module>resource-demo</module>
         <module>zuul-demo</module>
+        <module>sso-login-demo</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
