@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Security配置类
@@ -57,11 +56,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/goLogin")
-                .loginProcessingUrl("/login")
+        http.formLogin().loginPage("/authentication/require")
+                .loginProcessingUrl("/authentication/form")
                 .and().authorizeRequests()
                 .antMatchers("/authentication/require",
-                        "/authentication/form","/user"
+                        "/authentication/form"
                 )
                 .permitAll()
                 .anyRequest().authenticated()

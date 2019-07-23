@@ -17,6 +17,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
@@ -54,15 +56,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .scopes("all")
                 .accessTokenValiditySeconds(3600)
+                .redirectUris("http://localhost:8600/login")
                 .autoApprove(true);
     }
 
-    //@Bean
-    //public ApprovalStore approvalStore() {
-    //    TokenApprovalStore store = new TokenApprovalStore();
-    //    store.setTokenStore(tokenStore());
-    //    return store;
-    //}
 
     @Bean
     public TokenStore tokenStore() {

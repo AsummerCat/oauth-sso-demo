@@ -17,7 +17,7 @@ public class LoginController {
         return "进入认证服务器";
     }
 
-    @RequestMapping(value = "/goLogin",method = RequestMethod.GET)
+    @GetMapping("/authentication/require")
     public String login(){
         return "login";
     }

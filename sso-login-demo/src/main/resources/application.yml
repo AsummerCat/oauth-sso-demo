@@ -3,6 +3,10 @@ spring:
     name: ssoLoginServer
 server:
   port: 8600
+  servlet:
+    session:
+      cookie:
+        name: UISESSION
 
 ## eureka 客户端基本配置
 eureka:
@@ -16,7 +20,7 @@ eureka:
       enabled: true
 
 
-auth-server: http://localhost:8200
+auth-server: http://my.oauth.com:8200
 
 security:
   oauth2:
@@ -25,6 +29,10 @@ security:
       client-secret: 123456
       access-token-uri: ${auth-server}/oauth/token
       user-authorization-uri: ${auth-server}/oauth/authorize
+      authorized-grant-types: ["authorization_code", "refresh_token"]
     resource:
-      user-info-uri: ${auth-server}/user
-      prefer-token-info: false
+#      jwt:
+#        key-uri: ${auth-server}/oauth/token_key
+#      user-info-uri: ${auth-server}/user
+      token-info-uri: ${auth-server}/oauth/check_token
+#      prefer-token-info: false

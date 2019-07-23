@@ -16,7 +16,7 @@ eureka:
     healthcheck:
       enabled: true
 
-auth-server: http://localhost:8200
+auth-server: http://my.oauth.com:8200
 
 security:
   oauth2:
@@ -26,5 +26,5 @@ security:
       access-token-uri: ${auth-server}/oauth/token
       user-authorization-uri: ${auth-server}/oauth/authorize
     resource:
-      user-info-uri: ${auth-server}/user
-      prefer-token-info: false
+      user-info-uri: ${auth-server}/oauth/check_token
+#      prefer-token-info: false

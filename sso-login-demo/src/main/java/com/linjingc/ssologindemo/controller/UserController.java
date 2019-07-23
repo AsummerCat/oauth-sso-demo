@@ -2,6 +2,7 @@ package com.linjingc.ssologindemo.controller;
 
 import com.linjingc.ssologindemo.service.OauthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,11 +17,13 @@ public class UserController {
     @Autowired
     private OauthServiceImpl oauthService;
 
+    @GetMapping("/info")
+    public String info() {
+        return "info";
+    }
 
     @GetMapping("/user")
-    @ResponseBody
-    public Principal user(Principal user) {
-        System.out.println("获取到用户" + user.getName());
+    public Authentication user(Authentication user) {
         return user;
     }
 
