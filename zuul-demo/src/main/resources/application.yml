@@ -31,10 +31,10 @@ zuul:
 security:
   oauth2:
     client:
-      access-token-uri: http://my.cloud.com/oauthServer/oauth/authorize
+      access-token-uri: http://my.cloud.com/oauthServer/oauth/token
       client-id: client_2
       client-secret: 123456
-      user-authorization-uri: http://my.cloud.com/oauthServer/oauth/token
+      user-authorization-uri: http://my.cloud.com/oauthServer/oauth/authorize
     resource:
       user-info-uri: http://my.cloud.com/oauthServer/user
       prefer-token-info: false

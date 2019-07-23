@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // /oauth/authorize link org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint
 
                 // 必须登录过的用户才可以进行 oauth2 的授权码申请
-                .antMatchers("/","/oauth/*", "/oauth/authorize").authenticated()
+                .antMatchers("/", "/oauth/*", "/oauth/authorize").authenticated()
                 //不需要权限访问
                 .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/third-party/**", "/login").permitAll()
 

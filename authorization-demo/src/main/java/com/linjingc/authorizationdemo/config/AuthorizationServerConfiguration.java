@@ -55,7 +55,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .accessTokenValiditySeconds(3600)
                 .scopes("all")
                 .autoApprove(true)
-                .redirectUris("http://my.cloud.com/ssoLoginServer/login");
+                .redirectUris("http://localhost:10000/login");
     }
 
     @Bean

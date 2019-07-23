@@ -31,7 +31,7 @@ public class UserController {
         params.put("code", code);
         params.put("client_id", "client_2");
         params.put("client_secret", "secret");
-        params.put("redirect_uri", "http://my.cloud.com/ssologinServer/redirect");
+        params.put("redirect_uri", "http://loclhost:8200/redirect");
         Map<String, Object> map = oauthService.postAccessToken(params);
         return map;
     }
