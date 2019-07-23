@@ -1,8 +1,11 @@
-package com.linjingc.zuuldemo.service;
+package com.linjingc.ssologindemo.service;
+
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Map;
 
+@Service
 public class OauthServiceImpl implements OauthService {
     @Resource
     private OauthService oauthService;

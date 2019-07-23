@@ -20,10 +20,10 @@ eureka:
 security:
   oauth2:
     client:
-      access-token-uri: http://localhost:8200/uaa/oauth/authorize
+      access-token-uri: http://localhost:8200/oauth/token
       client-id: client_2
       client-secret: 123456
-      user-authorization-uri: http://localhost:8200/uaa/oauth/token
+      user-authorization-uri: http://localhost:8200/oauth/authorize
     resource:
       user-info-uri: http://localhost:8200/user
       prefer-token-info: false

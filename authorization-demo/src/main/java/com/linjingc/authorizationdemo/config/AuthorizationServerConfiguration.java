@@ -49,21 +49,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
 
         clients.inMemory()
-                .withClient("app-a")
+                .withClient("client_2")
                 .secret(finalSecret)
                 .authorizedGrantTypes("refresh_token","authorization_code")
                 .accessTokenValiditySeconds(3600)
                 .scopes("all")
                 .autoApprove(true)
-                .redirectUris("http://127.0.0.1:9090/login")
-                .and()
-                .withClient("app-b")
-                .secret(finalSecret)
-                .authorizedGrantTypes("refresh_token","authorization_code")
-                .accessTokenValiditySeconds(7200)
-                .scopes("all")
-                .autoApprove(true)
-                .redirectUris("http://127.0.0.1:9091/login");
+                .redirectUris("http://my.cloud.com/ssoLoginServer/login");
     }
 
     @Bean
@@ -105,8 +97,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         //允许表单认证
         security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()")
-              .allowFormAuthenticationForClients(); //允许表单认证  这段代码在授权码模式下会导致无法根据code　获取token　
+                .checkTokenAccess("isAuthenticated()");
+             // .allowFormAuthenticationForClients(); //允许表单认证  这段代码在授权码模式下会导致无法根据code　获取token　
 
     }
 }

@@ -1,4 +1,4 @@
-package com.linjingc.zuuldemo.service;
+package com.linjingc.ssologindemo.service;
 
 
 import org.springframework.cloud.openfeign.FeignClient;
