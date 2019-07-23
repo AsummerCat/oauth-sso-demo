@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Security配置类
@@ -24,15 +25,16 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String finalPassword = "{bcrypt}" + bCryptPasswordEncoder.encode("123456");
+
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user_1").password(finalPassword).authorities("USER").build());
-        manager.createUser(User.withUsername("user_2").password(finalPassword).authorities("USER").build());
+
+        manager.createUser(User.withUsername("583188551").password(finalPassword).authorities("USER").build());
+        manager.createUser(User.withUsername("724307597").password(finalPassword).authorities("USER").build());
         return manager;
     }
 
@@ -45,11 +47,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-//    // password 方案一：明文存储，用于测试，不能用于生产
-//    @Bean
-//    PasswordEncoder passwordEncoder() {
-//        return NoOpPasswordEncoder.getInstance();
-//    }
 
     // password 方案三：支持多种编码，通过密码的前缀区分编码方式,推荐
     @Bean
@@ -61,16 +58,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests()
-                //开启路径不需要权限访问
-                .antMatchers("/oauth/*", "/", "/user").permitAll()
-                //其他路径都需要权限
-                .anyRequest().authenticated();
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/hello");
-//                .loginProcessingUrl("/oauth/login");
+        http.
+                authorizeRequests()
+                // /oauth/authorize link org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint
+
+                // 必须登录过的用户才可以进行 oauth2 的授权码申请
+                .antMatchers("/","/oauth/*", "/oauth/authorize").authenticated()
+                //不需要权限访问
+                .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/third-party/**", "/login").permitAll()
+
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .and()
+                .httpBasic()
+                .disable()
+                .exceptionHandling()
+                .accessDeniedPage("/login?authorization_error=true")
+                .and()
+                // TODO: put CSRF protection back into this endpoint
+                .csrf()
+                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
+                .disable();
     }
 
 
@@ -83,7 +93,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/js/**");
         web.ignoring().antMatchers("/images/**");
-        web.ignoring().antMatchers("/login/**");
         //解决服务注册url被拦截的问题
         web.ignoring().antMatchers("/resources/**");
 

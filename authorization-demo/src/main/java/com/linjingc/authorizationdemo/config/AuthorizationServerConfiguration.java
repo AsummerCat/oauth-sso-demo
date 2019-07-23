@@ -14,6 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.approval.ApprovalStore;
+import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
@@ -46,17 +48,29 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         //这个地方后面会使用到 前缀表示密码加密类型
         String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
 
-        clients
-                //内存模式
-                .inMemory()
-                .withClient("client_2")
-                .resourceIds("order")
-                .authorizedGrantTypes("password", "refresh_token","authorization_code")
-                .scopes("select")
-                .authorities("oauth2")
+        clients.inMemory()
+                .withClient("app-a")
                 .secret(finalSecret)
-                .accessTokenValiditySeconds(300)
-                .refreshTokenValiditySeconds(2000);
+                .authorizedGrantTypes("refresh_token","authorization_code")
+                .accessTokenValiditySeconds(3600)
+                .scopes("all")
+                .autoApprove(true)
+                .redirectUris("http://127.0.0.1:9090/login")
+                .and()
+                .withClient("app-b")
+                .secret(finalSecret)
+                .authorizedGrantTypes("refresh_token","authorization_code")
+                .accessTokenValiditySeconds(7200)
+                .scopes("all")
+                .autoApprove(true)
+                .redirectUris("http://127.0.0.1:9091/login");
+    }
+
+    @Bean
+    public ApprovalStore approvalStore() {
+        TokenApprovalStore store = new TokenApprovalStore();
+        store.setTokenStore(tokenStore());
+        return store;
     }
 
     @Bean
@@ -91,7 +105,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         //允许表单认证
         security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients();
+                .checkTokenAccess("isAuthenticated()")
+              .allowFormAuthenticationForClients(); //允许表单认证  这段代码在授权码模式下会导致无法根据code　获取token　
+
     }
 }

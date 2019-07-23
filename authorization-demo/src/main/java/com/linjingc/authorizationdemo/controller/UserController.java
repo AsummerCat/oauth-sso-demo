@@ -20,25 +20,6 @@ public class UserController {
     @Autowired
     private TokenStore tokenStore;
 
-
-    /**
-     * 登录授权页
-     *
-     * @return
-     */
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping(value = "/hello")
-    public String hello() {
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal.getUsername());
-        return "hello";
-    }
-
-
     /**
      * 获取用户信息
      *
