@@ -17,14 +17,14 @@ eureka:
       enabled: true
 
 zuul:
-  ignoredServices: '*' # 忽略所有请求
+  # ignoredServices: '*' # 忽略所有请求
   host:
     connect-timeout-millis: 3000
     socket-timeout-millis: 3000
   routes:
-    resourceServer: /resourceServer/**
-    oauthServer: /oauthServer/**
-    ssologinServer: /ssologinServer/**
+    resourceServer: /1/**
+    oauthServer: /2/**
+
   add-proxy-headers: true
   add-host-header: true
 

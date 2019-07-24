@@ -13,7 +13,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  */
 @SpringCloudApplication
 @EnableZuulProxy
-@EnableOAuth2Sso
 public class ZuulDemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZuulDemoApplication.class, args);

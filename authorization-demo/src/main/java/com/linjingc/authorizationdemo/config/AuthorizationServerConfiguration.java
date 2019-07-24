@@ -52,7 +52,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .scopes("all")
                 .accessTokenValiditySeconds(3600)
-                .redirectUris("http://my.cloud.com/ssologinServer/login")
+                .redirectUris("http://my.cloud.com/login")
                 .autoApprove(true)
                 .accessTokenValiditySeconds(200)
                 .refreshTokenValiditySeconds(1000);

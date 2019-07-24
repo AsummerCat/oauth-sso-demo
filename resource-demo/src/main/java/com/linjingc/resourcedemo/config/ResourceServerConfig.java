@@ -1,14 +1,14 @@
 package com.linjingc.resourcedemo.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
-import javax.servlet.http.HttpServletResponse;
-
 @Configuration
 @EnableResourceServer
+@Order(3)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
@@ -22,7 +22,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 //                .anyRequest().authenticated()
 //                .and()
 //                .httpBasic();
-      //  http.csrf().disable();
+        http.csrf().disable();
         http.antMatcher("/**")
                 .authorizeRequests()
                 .antMatchers("/login**")
