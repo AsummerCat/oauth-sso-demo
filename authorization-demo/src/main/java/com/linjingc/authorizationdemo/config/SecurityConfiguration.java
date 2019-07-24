@@ -62,6 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         http.formLogin().loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
                 .and().authorizeRequests()
