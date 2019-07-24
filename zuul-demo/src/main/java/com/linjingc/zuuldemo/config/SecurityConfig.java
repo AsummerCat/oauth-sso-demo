@@ -13,7 +13,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/2/**", "/")
+        http.authorizeRequests().antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/2/**", "/","/login**")
                 .permitAll().anyRequest().authenticated();
 //        http.authorizeRequests()
 //                //不需要权限访问
