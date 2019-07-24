@@ -11,7 +11,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
+       // http.csrf().disable();
         http.authorizeRequests()
                 //不需要权限访问
                 .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/ssoLoginServer/login","/oauthServer/**","/").permitAll()
