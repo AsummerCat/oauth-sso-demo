@@ -10,5 +10,8 @@ public class indexController {
         return "进入首页";
     }
 
-
+    @RequestMapping("/hello")
+    public String hello(){
+        return "hello";
+    }
 }

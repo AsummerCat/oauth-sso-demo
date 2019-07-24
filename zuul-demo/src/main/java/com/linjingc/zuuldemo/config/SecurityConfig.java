@@ -13,11 +13,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-//        http.authorizeRequests().antMatchers( "/2/**", "/","/1/**")
-//                .permitAll().anyRequest().authenticated();
-//        http.authorizeRequests()
-//                //不需要权限访问
-//                .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/ssoLoginServer/login","/oauthServer/**","/").permitAll()
-//                .anyRequest().authenticated();
+
+        http.authorizeRequests().antMatchers( "/")
+                .permitAll().anyRequest().authenticated();
+        http.authorizeRequests()
+                //不需要权限访问
+                .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js").permitAll()
+                .anyRequest().authenticated();
     }
 }
