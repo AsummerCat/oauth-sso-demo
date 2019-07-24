@@ -26,16 +26,18 @@ zuul:
     oauthServer: /oauthServer/**
     ssologinServer: /ssologinServer/**
   add-proxy-headers: true
+  add-host-header: true
 
+
+auth-server: http://my.oauth.com:8200
 
 security:
   oauth2:
     client:
-      access-token-uri: http://my.cloud.com/oauthServer/oauth/token
-      client-id: client_2
+      client-id: client
       client-secret: 123456
-      user-authorization-uri: http://my.cloud.com/oauthServer/oauth/authorize
+      access-token-uri: ${auth-server}/oauth/token
+      user-authorization-uri: ${auth-server}/oauth/authorize
     resource:
-      user-info-uri: http://my.cloud.com/oauthServer/user
-      prefer-token-info: false
+      token-info-uri: ${auth-server}/oauth/check_token
 

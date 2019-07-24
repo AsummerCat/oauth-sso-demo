@@ -47,7 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-    // password 方案三：支持多种编码，通过密码的前缀区分编码方式,推荐
+    /**
+     * 支持多种编码，通过密码的前缀区分编码方式,推荐
+     *
+     * @return
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -59,42 +63,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/form")
                 .and().authorizeRequests()
-                .antMatchers("/authentication/require",
-                        "/authentication/form"
-                )
-                .permitAll()
+                //不拦截
+                .antMatchers("/authentication/require", "/authentication/form").permitAll()
+                //其他请求全部需要授权
                 .anyRequest().authenticated()
                 .and()
+                //关闭跨域保护
                 .csrf().disable();
 
 
     }
-    //    //http.csrf().disable();
-    //    //http.
-    //    //        authorizeRequests()
-    //    //        // /oauth/authorize link org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint
-    //    //
-    //    //        // 必须登录过的用户才可以进行 oauth2 的授权码申请
-    //    //        .antMatchers("/", "/oauth/*", "/oauth/authorize").authenticated()
-    //    //        //不需要权限访问
-    //    //        .antMatchers("/**.html", "/**.html", "/**.css", "/img/**", "/**.js", "/third-party/**", "/login").permitAll()
-    //    //
-    //    //        .anyRequest().authenticated()
-    //    //        //.and()
-    //    //        //.formLogin()
-    //    //        //.loginPage("/login")
-    //    //        .and()
-    //    //        .httpBasic()
-    //    //        .disable()
-    //    //        .exceptionHandling()
-    //    //        .accessDeniedPage("/login?authorization_error=true")
-    //    //        .and()
-    //    //        // TODO: put CSRF protection back into this endpoint
-    //    //        .csrf()
-    //    //        .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
-    //    //        .disable();
-    //}
-
 
     /**
      * 放行静态资源
@@ -107,6 +85,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/images/**");
         //解决服务注册url被拦截的问题
         web.ignoring().antMatchers("/resources/**");
-
     }
 }

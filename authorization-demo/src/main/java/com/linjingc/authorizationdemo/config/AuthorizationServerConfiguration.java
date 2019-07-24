@@ -14,11 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.approval.ApprovalStore;
-import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
@@ -56,8 +52,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .scopes("all")
                 .accessTokenValiditySeconds(3600)
-                .redirectUris("http://localhost:8600/login")
-                .autoApprove(true);
+                .redirectUris("http://my.cloud.com/ssologinServer/login")
+                .autoApprove(true)
+                .accessTokenValiditySeconds(200)
+                .refreshTokenValiditySeconds(1000);
     }
 
 
@@ -92,9 +90,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         //允许表单认证
-        security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
-             // .allowFormAuthenticationForClients(); //允许表单认证  这段代码在授权码模式下会导致无法根据code　获取token　
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        // .allowFormAuthenticationForClients(); //允许表单认证  这段代码在授权码模式下会导致无法根据code　获取token　
 
     }
 }
