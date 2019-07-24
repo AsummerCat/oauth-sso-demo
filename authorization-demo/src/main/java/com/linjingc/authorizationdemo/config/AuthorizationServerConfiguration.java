@@ -53,9 +53,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .scopes("all")
                 .accessTokenValiditySeconds(3600)
                 .redirectUris("http://my.cloud.com/login")
-                .autoApprove(true)
-                .accessTokenValiditySeconds(200)
-                .refreshTokenValiditySeconds(1000);
+                .autoApprove(true);
     }
 
 
@@ -90,8 +88,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         //允许表单认证
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
-        // .allowFormAuthenticationForClients(); //允许表单认证  这段代码在授权码模式下会导致无法根据code　获取token　
+        security.allowFormAuthenticationForClients().tokenKeyAccess("permitAll()")//公开/oauth/token的接口
+                .checkTokenAccess("permitAll()");
+               // .allowFormAuthenticationForClients(); //允许表单认证  这段代码在授权码模式下会导致无法根据code　获取token　
 
     }
 }

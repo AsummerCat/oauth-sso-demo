@@ -16,6 +16,7 @@ eureka:
     healthcheck:
       enabled: true
 
+
 auth-server: http://my.oauth.com:8200
 
 security:
@@ -26,5 +27,4 @@ security:
       access-token-uri: ${auth-server}/oauth/token
       user-authorization-uri: ${auth-server}/oauth/authorize
     resource:
-      user-info-uri: ${auth-server}/oauth/check_token
-#      prefer-token-info: false
+      token-info-uri: ${auth-server}/oauth/check_token

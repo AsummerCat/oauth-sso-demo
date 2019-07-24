@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/authentication/form")
                 .and().authorizeRequests()
                 //不拦截
-                .antMatchers("/authentication/require", "/authentication/form").permitAll()
+                .antMatchers("/authentication/require", "/authentication/form","/oauth/**").permitAll()
                 //其他请求全部需要授权
                 .anyRequest().authenticated()
                 .and()

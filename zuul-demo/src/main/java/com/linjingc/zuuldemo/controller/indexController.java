@@ -9,4 +9,6 @@ public class indexController {
     public String index(){
         return "进入首页";
     }
+
+
 }
