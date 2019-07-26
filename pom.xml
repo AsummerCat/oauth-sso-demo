@@ -17,7 +17,6 @@
     <modules>
         <module>authorization-demo</module>
         <module>eureka-demo</module>
-        <module>login-demo</module>
         <module>resource-demo</module>
         <module>zuul-demo</module>
         <module>sso-login-demo</module>
