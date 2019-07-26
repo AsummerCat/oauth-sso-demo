@@ -43,3 +43,6 @@ security:
     resource:
       token-info-uri: ${auth-server}/oauth/check_token
 
+logging:
+  level:
+    org.springframework.security: debug
